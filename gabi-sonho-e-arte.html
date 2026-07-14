@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabi Sonho e Arte — Papelaria Criativa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF1E7;
+    --paper-deep:#F3E4D2;
+    --blush:#F4D3D9;
+    --blush-deep:#EABFC8;
+    --rose:#C4707E;
+    --rose-deep:#A85764;
+    --plum:#3A2733;
+    --mint:#9FC9B4;
+    --mint-deep:#7FAF97;
+    --gold:#D2A05C;
+    --ink-soft:#6B5560;
+    --radius:22px;
+    --shadow: 0 18px 40px -20px rgba(58,39,51,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--plum);
+    font-family:'Quicksand', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .hand{
+    font-family:'Caveat', cursive;
+    font-weight:600;
+  }
+  p{margin:0;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  .wrap{
+    max-width:1140px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  section{position:relative;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- washi tape divider ---------- */
+  .washi{
+    height:26px;
+    width:100%;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--mint) 0 14px,
+      var(--mint-deep) 14px 28px
+    );
+    opacity:0.55;
+    transform:rotate(-0.6deg);
+    margin:0 auto;
+    max-width:1200px;
+    border-radius:3px;
+  }
+  .washi.pink{
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--blush) 0 14px,
+      var(--blush-deep) 14px 28px
+    );
+  }
+
+  /* ---------- gift-tag button (signature element) ---------- */
+  .tag-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 30px 16px 34px;
+    background:var(--rose);
+    color:var(--paper);
+    font-family:'Quicksand',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    clip-path:polygon(24px 0, 100% 0, 100% 100%, 24px 100%, 0 50%);
+    box-shadow:var(--shadow);
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    border:none;
+    cursor:pointer;
+    margin-left:14px;
+  }
+  .tag-btn:hover{transform:translateY(-3px) rotate(-1deg);background:var(--rose-deep);}
+  .tag-btn::before{
+    content:'';
+    position:absolute;
+    left:11px;
+    top:50%;
+    transform:translateY(-50%);
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow:inset 0 0 0 1.5px rgba(58,39,51,0.25);
+  }
+  .tag-btn.ghost{
+    background:transparent;
+    color:var(--plum);
+    box-shadow:none;
+    border:2px solid var(--plum);
+    clip-path:polygon(24px 0, 100% 0, 100% 100%, 24px 100%, 0 50%);
+  }
+  .tag-btn.ghost::before{background:var(--plum);}
+  .tag-btn.ghost:hover{background:var(--plum);color:var(--paper);}
+  .tag-btn.ghost:hover::before{background:var(--paper);}
+  .btn-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px;}
+  .btn-row .tag-btn{margin-left:0;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,241,231,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(58,39,51,0.08);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1140px;margin:0 auto;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;
+  }
+  .brand-mark{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--blush);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;
+    box-shadow:inset 0 0 0 2px rgba(58,39,51,0.08);
+  }
+  .nav-links{display:flex;gap:28px;font-weight:600;font-size:.95rem;}
+  .nav-links a{opacity:.75;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{display:none;}
+  @media(min-width:860px){.nav-cta{display:block;}}
+  @media(max-width:859px){.nav-links{display:none;}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:72px 0 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1fr;gap:48px;align-items:center;
+  }
+  @media(min-width:900px){
+    .hero-grid{grid-template-columns:1.05fr 0.95fr;gap:36px;}
+  }
+  .eyebrow{
+    font-family:'Caveat',cursive;font-size:1.5rem;color:var(--rose-deep);
+    display:inline-block;transform:rotate(-2deg);margin-bottom:6px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.05;
+    color:var(--plum);
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--rose-deep);
+    position:relative;
+  }
+  .hero p.sub{
+    margin-top:20px;font-size:1.12rem;color:var(--ink-soft);max-width:46ch;
+  }
+  .trust-line{
+    margin-top:26px;font-size:.95rem;font-weight:700;color:var(--mint-deep);
+    display:flex;align-items:center;gap:8px;
+  }
+  .trust-line .dot{width:8px;height:8px;border-radius:50%;background:var(--mint-deep);}
+
+  .hero-art{
+    position:relative;
+    aspect-ratio:1/1;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .hero-art svg{width:100%;height:100%;}
+  .float-tag{
+    position:absolute;
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:10px 16px;
+    font-family:'Caveat',cursive;
+    font-size:1.25rem;
+    color:var(--rose-deep);
+    transform:rotate(-4deg);
+  }
+  .float-tag.a{top:6%;left:-6%;}
+  .float-tag.b{bottom:8%;right:-8%;transform:rotate(3deg);}
+  @media(max-width:500px){.float-tag{font-size:1rem;padding:8px 12px;}}
+
+  /* ---------- section headers ---------- */
+  .sec-head{max-width:640px;margin:0 auto 44px;text-align:center;}
+  .sec-head .eyebrow{display:block;text-align:center;}
+  .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem);}
+  .sec-head p{margin-top:14px;color:var(--ink-soft);font-size:1.05rem;}
+
+  /* ---------- categories (scrapbook cards) ---------- */
+  .categories{padding:70px 0;}
+  .cat-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:26px;
+  }
+  .cat-card{
+    background:var(--paper-deep);
+    border-radius:var(--radius);
+    padding:30px 24px 28px;
+    box-shadow:var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease;
+    position:relative;
+  }
+  .cat-card:nth-child(odd){transform:rotate(-1.3deg);}
+  .cat-card:nth-child(even){transform:rotate(1.1deg);}
+  .cat-card:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 24px 46px -18px rgba(58,39,51,0.42);}
+  .cat-card .tape{
+    position:absolute;top:-12px;left:26px;width:64px;height:22px;
+    background:var(--mint);opacity:.75;transform:rotate(-6deg);
+    box-shadow:0 2px 4px rgba(0,0,0,0.08);
+  }
+  .cat-card:nth-child(3n+2) .tape{background:var(--gold);left:auto;right:26px;transform:rotate(6deg);}
+  .cat-card:nth-child(3n) .tape{background:var(--rose);}
+  .cat-icon{
+    width:56px;height:56px;border-radius:16px;
+    background:var(--blush);display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+  }
+  .cat-card h3{font-size:1.22rem;margin-bottom:10px;}
+  .cat-card p{color:var(--ink-soft);font-size:.98rem;}
+
+  /* ---------- process ---------- */
+  .process{padding:60px 0 80px;}
+  .process-grid{
+    display:grid;grid-template-columns:1fr;gap:0;
+    position:relative;
+  }
+  @media(min-width:800px){.process-grid{grid-template-columns:repeat(3,1fr);}}
+  .step{
+    padding:18px 22px;text-align:left;position:relative;
+  }
+  .step .num{
+    font-family:'Fraunces',serif;font-size:2.6rem;color:var(--blush-deep);
+    line-height:1;
+  }
+  .step h3{margin-top:10px;font-size:1.15rem;}
+  .step p{margin-top:8px;color:var(--ink-soft);font-size:.96rem;}
+  @media(min-width:800px){
+    .step:not(:last-child)::after{
+      content:'';position:absolute;top:26px;right:-4%;width:8%;
+      border-top:2.5px dashed var(--rose);opacity:.5;
+    }
+  }
+
+  /* ---------- proof band ---------- */
+  .proof{
+    background:var(--plum);color:var(--paper);
+    padding:64px 0;
+  }
+  .proof-grid{
+    display:grid;grid-template-columns:1fr;gap:36px;align-items:center;
+  }
+  @media(min-width:820px){.proof-grid{grid-template-columns:1fr 1fr;}}
+  .proof-quote{
+    position:relative;
+    background:rgba(251,241,231,0.06);
+    border:1px dashed rgba(251,241,231,0.35);
+    border-radius:18px;
+    padding:34px 30px;
+  }
+  .proof-quote .mark{font-family:'Fraunces',serif;font-size:3rem;color:var(--gold);line-height:0.6;}
+  .proof-quote p.quote-text{
+    font-family:'Fraunces',serif;font-size:1.35rem;line-height:1.4;margin-top:10px;
+  }
+  .proof-stats{display:flex;gap:34px;flex-wrap:wrap;}
+  .stat b{font-family:'Fraunces',serif;font-size:2.2rem;display:block;color:var(--gold);}
+  .stat span{font-size:.92rem;color:rgba(251,241,231,0.75);}
+
+  /* ---------- gallery ---------- */
+  .gallery{padding:76px 0;}
+  .gal-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:20px;
+  }
+  .gal-card{
+    aspect-ratio:4/5;
+    border-radius:16px;
+    padding:16px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .gal-card span{
+    font-family:'Caveat',cursive;font-size:1.3rem;color:var(--plum);font-weight:700;
+  }
+  .gal-card svg{position:absolute;top:14px;left:14px;width:34px;height:34px;opacity:.85;}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:70px 0 90px;}
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .faq-item{
+    background:var(--paper-deep);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .faq-q{
+    width:100%;text-align:left;padding:20px 24px;
+    background:none;border:none;cursor:pointer;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:1.02rem;color:var(--plum);
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .faq-q .plus{transition:transform .25s ease;font-size:1.3rem;color:var(--rose-deep);}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    padding:0 24px;color:var(--ink-soft);font-size:.97rem;
+  }
+  .faq-item.open .faq-a{max-height:220px;padding-bottom:20px;}
+
+  /* ---------- final CTA ---------- */
+  .final-cta{
+    padding:90px 0 100px;
+    text-align:center;
+    position:relative;
+  }
+  .final-cta h2{font-size:clamp(2rem,4vw,2.9rem);max-width:16ch;margin:0 auto;}
+  .final-cta p{margin-top:16px;color:var(--ink-soft);font-size:1.08rem;}
+  .final-cta .btn-row{justify-content:center;margin-top:30px;}
+
+  footer{
+    background:var(--plum);color:rgba(251,241,231,0.75);
+    padding:40px 0 30px;font-size:.9rem;
+  }
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center;}
+  .foot-brand{font-family:'Fraunces',serif;color:var(--paper);font-size:1.15rem;}
+  .foot-links{display:flex;gap:20px;}
+  .foot-links a{opacity:.85;}
+  .foot-links a:hover{opacity:1;text-decoration:underline;}
+
+  /* whatsapp floating button */
+  .float-wa{
+    position:fixed;bottom:22px;right:22px;z-index:60;
+    width:60px;height:60px;border-radius:50%;
+    background:var(--rose);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 30px -10px rgba(58,39,51,0.5);
+    transition:transform .25s ease;
+  }
+  .float-wa:hover{transform:scale(1.08);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <span class="brand-mark">✂️</span>
+      Gabi Sonho e Arte
+    </div>
+    <nav class="nav-links">
+      <a href="#produtos">Produtos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="tag-btn" style="padding:12px 22px 12px 26px;font-size:.9rem;" href="https://wa.me/5585921778312?text=Oi%20Gabi!%20Vim%20do%20site%20e%20queria%20saber%20mais%20sobre%20os%20mimos%20personalizados%20%F0%9F%92%9B" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">feito à mão, com carinho</span>
+      <h1>Presentes que viram <em>lembrança.</em></h1>
+      <p class="sub">Caixinhas, lembrancinhas e mimos personalizados para transformar aniversários, datas especiais e presentes do dia a dia em um momento inesquecível.</p>
+      <div class="btn-row">
+        <a class="tag-btn" href="https://wa.me/5585921778312?text=Oi%20Gabi!%20Vim%20do%20site%20e%20queria%20saber%20mais%20sobre%20os%20mimos%20personalizados%20%F0%9F%92%9B" target="_blank" rel="noopener">Fazer meu pedido</a>
+        <a class="tag-btn ghost" href="https://www.instagram.com/gabisonhoearte" target="_blank" rel="noopener">Ver no Instagram</a>
+      </div>
+      <div class="trust-line"><span class="dot"></span> Mais de 100 famílias já confiam na Gabi Sonho e Arte</div>
+    </div>
+    <div class="hero-art reveal">
+      <span class="float-tag a">feito com amor 💌</span>
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="190" fill="#F4D3D9"/>
+        <circle cx="200" cy="200" r="190" fill="none" stroke="#EABFC8" stroke-width="2" stroke-dasharray="6 8"/>
+        <!-- girl seated -->
+        <ellipse cx="200" cy="330" rx="120" ry="16" fill="#EABFC8" opacity="0.5"/>
+        <path d="M120 260 Q200 220 280 260 L268 330 Q200 350 132 330 Z" fill="#9FC9B4"/>
+        <circle cx="200" cy="170" r="58" fill="#F6DFC8"/>
+        <path d="M148 150 Q160 90 200 96 Q240 90 252 150 Q252 190 200 200 Q148 190 148 150 Z" fill="#5B3A44"/>
+        <path d="M170 118 Q200 100 230 118" stroke="#3A2733" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="182" cy="172" r="5" fill="#3A2733"/>
+        <circle cx="218" cy="172" r="5" fill="#3A2733"/>
+        <path d="M188 190 Q200 198 212 190" stroke="#3A2733" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="165" cy="178" r="8" fill="#EABFC8" opacity="0.7"/>
+        <circle cx="235" cy="178" r="8" fill="#EABFC8" opacity="0.7"/>
+        <path d="M150 112 Q170 86 200 96" stroke="#9FC9B4" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <!-- ribbon in hands -->
+        <path d="M110 260 Q80 250 70 220" stroke="#C4707E" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M290 260 Q320 245 300 210" stroke="#D2A05C" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <!-- scissors -->
+        <g transform="translate(64 232) rotate(-18)">
+          <circle cx="0" cy="0" r="8" fill="none" stroke="#3A2733" stroke-width="4"/>
+          <circle cx="0" cy="16" r="8" fill="none" stroke="#3A2733" stroke-width="4"/>
+          <path d="M6 6 L34 40" stroke="#3A2733" stroke-width="4" stroke-linecap="round"/>
+          <path d="M6 12 L34 -14" stroke="#3A2733" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <!-- little paper box beside -->
+        <g transform="translate(255 250)">
+          <rect x="0" y="20" width="46" height="40" rx="4" fill="#FBF1E7" stroke="#C4707E" stroke-width="3"/>
+          <rect x="0" y="10" width="46" height="14" rx="4" fill="#D2A05C"/>
+          <path d="M18 10 Q23 -6 28 10" stroke="#C4707E" stroke-width="4" fill="none"/>
+        </g>
+      </svg>
+      <span class="float-tag b">sonho + arte 🎀</span>
+    </div>
+  </div>
+</section>
+
+<div class="washi"></div>
+
+<section class="categories" id="produtos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">o que a gabi faz por você</span>
+      <h2>Cada mimo, uma história diferente</h2>
+      <p>Do tema à embalagem, tudo pensado nos mínimos detalhes para o seu momento especial.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="tape"></div>
+        <div class="cat-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8l2 12h14l2-12M3 8l3-5h12l3 5" stroke="#A85764" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 3v5M15 3v5" stroke="#A85764" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Caixinhas personalizadas</h3>
+        <p>Temas de aniversário, Natal, times do coração e personagens favoritos, feitas à mão do zero.</p>
+      </div>
+      <div class="cat-card reveal">
+        <div class="tape"></div>
+        <div class="cat-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="#A85764" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke="#A85764" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Lembrancinhas de festa</h3>
+        <p>Kits completos para presentear cada convidado com um mimo único e cheio de significado.</p>
+      </div>
+      <div class="cat-card reveal">
+        <div class="tape"></div>
+        <div class="cat-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1116 0" stroke="#A85764" stroke-width="1.8"/><path d="M4 12h16v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4z" stroke="#A85764" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Cenários e mini bolos</h3>
+        <p>Potinhos decorados, topos de bolo e cenários temáticos para deixar a festa ainda mais fofa.</p>
+      </div>
+      <div class="cat-card reveal">
+        <div class="tape"></div>
+        <div class="cat-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#A85764" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#A85764" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Presentes personalizados</h3>
+        <p>Nome, mensagem e tema escolhidos por você — prontos para presentear quem você ama.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="como-funciona">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">do pedido ao presente</span>
+      <h2>Como funciona</h2>
+    </div>
+    <div class="process-grid">
+      <div class="step reveal">
+        <span class="num">01</span>
+        <h3>Escolha o tema</h3>
+        <p>Me conta a ocasião, o tema e as cores que você imagina para o seu mimo.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">02</span>
+        <h3>Combinamos os detalhes</h3>
+        <p>Definimos juntas o modelo, a quantidade e o prazo, direto pelo WhatsApp.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">03</span>
+        <h3>Você recebe pronto</h3>
+        <p>Retire ou receba em casa, tudo embalado com todo o cuidado da Gabi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap proof-grid">
+    <div class="proof-quote reveal">
+      <span class="mark">"</span>
+      <p class="quote-text">Sucesso não é sobre poder. É sobre a autodescoberta que surge da persistência e coragem.</p>
+      <p style="margin-top:14px;font-family:'Caveat',cursive;font-size:1.15rem;color:var(--gold);">— frase do dia, direto do ateliê da Gabi</p>
+    </div>
+    <div class="proof-stats reveal">
+      <div class="stat"><b>100+</b><span>famílias atendidas</span></div>
+      <div class="stat"><b>15+</b><span>temas já criados</span></div>
+      <div class="stat"><b>100%</b><span>feito à mão</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">um gostinho do ateliê</span>
+      <h2>Temas que já saíram daqui</h2>
+      <p>Alguns exemplos do que já foi criado — o seu tema pode ser o próximo.</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-card reveal" style="background:var(--blush);">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1.2 4.5 2.6C12 5.7 13.5 5 15.5 5 19 5 21.5 8.5 21.5 12.5 19 16.65 12 21 12 21z" fill="#C4707E"/></svg>
+        <span>Hello Kitty</span>
+      </div>
+      <div class="gal-card reveal" style="background:var(--mint);">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#3A2733"/><path d="M12 4v16M4 12h16" stroke="#FBF1E7" stroke-width="1"/></svg>
+        <span>Time do coração</span>
+      </div>
+      <div class="gal-card reveal" style="background:var(--gold);opacity:.92;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 10h16v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" stroke="#3A2733" stroke-width="1.6"/><path d="M4 10l8-6 8 6" stroke="#3A2733" stroke-width="1.6"/></svg>
+        <span>Papai Noel Express</span>
+      </div>
+      <div class="gal-card reveal" style="background:var(--blush-deep);">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3A2733" stroke-width="1.6"/><path d="M8 14c1.3 1.3 2.7 2 4 2s2.7-.7 4-2" stroke="#3A2733" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="1" fill="#3A2733"/><circle cx="15" cy="10" r="1" fill="#3A2733"/></svg>
+        <span>Aniversário Sofia</span>
+      </div>
+      <div class="gal-card reveal" style="background:var(--mint-deep);">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 5.6H19l-4.6 3.4L16.2 18 12 14.6 7.8 18l1.8-6L5 8.6h5.2L12 3z" fill="#FBF1E7"/></svg>
+        <span>Pequeno Príncipe</span>
+      </div>
+      <div class="gal-card reveal" style="background:var(--rose);opacity:.9;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 9h16v11H4z" stroke="#FBF1E7" stroke-width="1.6"/><path d="M4 9l3-5h10l3 5" stroke="#FBF1E7" stroke-width="1.6"/></svg>
+        <span>Pipoca &amp; festa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="washi pink"></div>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">antes de chamar no zap</span>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q">Qual o prazo de entrega? <span class="plus">+</span></button>
+        <div class="faq-a"><p>O prazo varia de acordo com o tema e a quantidade do pedido. A Gabi confirma a data certinha com você direto pelo WhatsApp.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Vocês entregam em qual região? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Atendemos retirada e entrega combinada por WhatsApp — chame a Gabi e conte de onde você é para ver a melhor opção.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Dá para personalizar tema, cores e nome? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Sim! Cada peça é feita à mão e pode ser personalizada com o tema, as cores e o nome que você quiser.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quais as formas de pagamento? <span class="plus">+</span></button>
+        <div class="faq-a"><p>As formas de pagamento são combinadas diretamente com a Gabi no momento do orçamento, pelo WhatsApp.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Preciso pedir com quanto tempo de antecedência? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Quanto antes você chamar, melhor — assim dá tempo de caprichar em cada detalhe do seu tema. Fale com a Gabi para confirmar a agenda.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap reveal">
+    <h2>Vamos criar o mimo perfeito para o seu momento?</h2>
+    <p>Chama a Gabi agora no WhatsApp e conta qual é a ocasião.</p>
+    <div class="btn-row">
+      <a class="tag-btn" href="https://wa.me/5585921778312?text=Oi%20Gabi!%20Vim%20do%20site%20e%20queria%20saber%20mais%20sobre%20os%20mimos%20personalizados%20%F0%9F%92%9B" target="_blank" rel="noopener">Fazer meu pedido agora</a>
+      <a class="tag-btn ghost" href="https://www.instagram.com/gabisonhoearte" target="_blank" rel="noopener">@gabisonhoearte</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">Gabi Sonho e Arte</div>
+    <p>Papelaria Criativa · feito à mão com amor</p>
+    <div class="foot-links">
+      <a href="https://www.instagram.com/gabisonhoearte" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/5585921778312" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/5585921778312?text=Oi%20Gabi!%20Vim%20do%20site%20e%20queria%20saber%20mais%20sobre%20os%20mimos%20personalizados%20%F0%9F%92%9B" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z" fill="#FBF1E7"/><path d="M8.5 7.5c.3-.6.5-.6.8-.6h.6c.2 0 .5 0 .7.6.3.6.9 2 1 2.1.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.2.7.2.4 1 1.6 2.1 2.5 1.4 1.2 2 1.3 2.3 1.2.3-.1.7-.6.9-.9.2-.3.4-.3.7-.2.3.1 1.9.9 2.2 1 .3.2.5.2.6.4.1.2.1 1-.3 1.9-.4.9-2.1 1.7-2.9 1.7-.8 0-1.7 0-5.4-2.2-3.7-2.2-4.9-6-5-6.3-.1-.3-.9-1.5-.9-2.9 0-1.4.7-2.1 1-2.4z" fill="#C4707E"/></svg>
+</a>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{ if(o!==item) o.classList.remove('open'); });
+      item.classList.toggle('open', !isOpen);
+    });
+  });
+</script>
+
+</body>
+</html>
